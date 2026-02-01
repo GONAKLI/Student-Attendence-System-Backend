@@ -23,26 +23,26 @@ let StoreFile = multer({ storage: storage }).single("profilePic");
 
 let AdminController = require("../Controller/AdminController");
 
-AdminRouter.use('/admin/',AdminController.ValidateAdmin);
+AdminRouter.get('/', AdminController.ValidateAdmin);
 
-AdminRouter.get("/admin/dashboard", AdminController.DashBoard);
+AdminRouter.get("/dashboard", AdminController.DashBoard);
 
 AdminRouter.post(
-  "/admin/add-teacher",
+  "/add-teacher",
   StoreFile,
   AdminController.AddTeacher,
 );
 
-AdminRouter.get("/admin/get-teachers", AdminController.GetTeachers);
+AdminRouter.get("/get-teachers", AdminController.GetTeachers);
 
-AdminRouter.delete("/admin/delete-teacher/:id", AdminController.RemoveTeacher);
+AdminRouter.delete("/delete-teacher/:id", AdminController.RemoveTeacher);
 
-AdminRouter.post("/admin/logout", AdminController.LogOut);
+AdminRouter.post("/logout", AdminController.LogOut);
 
-AdminRouter.get("/admin/dashboard/view-students", AdminController.GetStudents);
+AdminRouter.get("/dashboard/view-students", AdminController.GetStudents);
 
-AdminRouter.get("/admin/dashboard/view-student/:id", AdminController.GetOneStudent);
+AdminRouter.get("/dashboard/view-student/:id", AdminController.GetOneStudent);
 
-AdminRouter.delete('/admin/delete-student/:id', AdminController.RemoveStudent);
+AdminRouter.delete('/delete-student/:id', AdminController.RemoveStudent);
 
 module.exports = AdminRouter;

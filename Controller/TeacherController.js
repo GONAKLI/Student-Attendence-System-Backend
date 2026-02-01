@@ -27,7 +27,7 @@ exports.TeacherSignIn = async (req, res) => {
     req.session.TeacherloggedIn = true;
     req.session.TeacherEmail = teacher.email.toString();
     req.session.TeacherId = teacher._id.toString();
-    req.session.AdminId = teacher.admin_id.toString();
+    req.session.AdminId = teacher.AdminId.toString();
 
     return res.status(200).json({
       message: "teacher details are correct",
@@ -124,7 +124,7 @@ exports.TeacherDetails = async(req,res) =>{
 
 exports.GetStudents = async (req, res) => {
   try {
-    let Students = await Student.find({ TeacherId: req.session.TeacherId });
+    let Students = await Student.find({ AdminId: req.session.AdminId });
 
     if (!Students || Students.length === 0) {
       return res.status(404).json({ message: "No students found" });

@@ -7,7 +7,7 @@ const Student = require('../Schema/Add_New_Student');
 
 exports.ValidateAdmin = (req, res, next) => {
   if (req.session && req.session.AdminLoggedIn) {
-   return next();
+   return res.status(200).json();
   } else {
     return res.status(401).json({
         reason : "unauthorized",
@@ -16,8 +16,8 @@ exports.ValidateAdmin = (req, res, next) => {
 };
 
 exports.DashBoard = (req, res) => {
-    res.json({
-      message: `welcome ${req.session.AdminName}`,
+    res.status(200).json({
+      name : req.session.AdminName,
     });
 };
 
@@ -95,19 +95,6 @@ exports.LogOut = (req, res) => {
 
 exports.AddTeacher = (req, res) => {
 
-// let storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "TeacherImages/");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + "-" + file.originalname);
-//   },
-// });
-
-// let StoreFile = multer({ storage: storage }).single("profilePic");
-
-
-// StoreFile(req,res, (err) => {
 
   let {
     name,
@@ -124,9 +111,9 @@ exports.AddTeacher = (req, res) => {
   mobile = Number(mobile);
   let year = new Date(dob).getFullYear();
   let password = `${mobile}@${year}`;
-  let admin_id = req.session.AdminId;
-  let admin_email = req.session.AdminEmail;
-  let admin_name = req.session.AdminName;
+  let AdminId = req.session.AdminId;
+  let AdminEmail = req.session.AdminEmail;
+  let AdminName = req.session.AdminName;
   let teacher_data = new Teacher({
     name,
     address,
@@ -137,9 +124,9 @@ exports.AddTeacher = (req, res) => {
     mobile,
     qualification,
     profilePic,
-    admin_id,
-    admin_email,
-    admin_name,
+    AdminId,
+    AdminEmail,
+    AdminName,
     gender,
   });
   teacher_data
@@ -162,8 +149,8 @@ exports.AddTeacher = (req, res) => {
 
 exports.GetTeachers = (req, res) => {
   Teacher.find({
-    admin_id: req.session.AdminId,
-    admin_email: req.session.AdminEmail,
+    AdminId: req.session.AdminId,
+    AdminEmail: req.session.AdminEmail,
   }).then((teacher) => {
     res.status(200).json(teacher);
   });
@@ -180,7 +167,7 @@ exports.RemoveTeacher = (req, res) => {
 
 exports.GetStudents = async (req, res) => {
   try {
-    let Students = await Student.find({ admin_id: req.session.admin_id });
+    let Students = await Student.find({ AdminId: req.session.AdminId });
 
     if (!Students || Students.length === 0) {
       return res.status(404).json({ message: "No students found" });
@@ -231,7 +218,7 @@ exports.RemoveStudent = async (req,res) => {
   
  await Student.findByIdAndDelete(id);
   try {
-    let Students = await Student.find({ admin_id: req.session.admin_id });
+    let Students = await Student.find({ AdminId: req.session.AdminId });
 
     if (!Students || Students.length === 0) {
       return res.status(404).json({ message: "No students found" });

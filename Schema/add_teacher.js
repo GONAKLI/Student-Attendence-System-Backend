@@ -27,9 +27,9 @@ const teacherSchema = new mongoose.Schema({
   qualification: { type: String, required: false },
   profilePic: { type: String },
   password: { type: String, required: true },
-  admin_id: { type: String, required: true },
-  admin_email: { type: String, required: true },
-  admin_name: { type: String, required: true },
+  AdminId: { type: String, required: true },
+  AdminEmail: { type: String, required: true },
+  AdminName: { type: String, required: true },
 });
 
 // 👇 Model name singular + Capitalized

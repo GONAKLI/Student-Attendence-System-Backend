@@ -13,6 +13,7 @@ const AdminAuthCheck = require("./Routes/AuthorizationRoutes/AdminAuth");
 const AdminRoutes = require("./Routes/AdminRoutes");
 const TeacherRoutes = require("./Routes/TeacherRoutes");
 const TeacherAuthCheck = require("./Routes/AuthorizationRoutes/TeacherAuth");
+const DirectRouteAccess=require("./Routes/AuthorizationRoutes/DirectRouteAccess");
 let mongosession = require("connect-mongodb-session")(session);
 
 let store = new mongosession({
@@ -44,7 +45,8 @@ app.use("/StudentImages", express.static("StudentImages"));
 
 app.use(AdminAuthCheck);
 app.use(TeacherAuthCheck);
-app.use(AdminRoutes);
+app.use(DirectRouteAccess);
+app.use('/admin', AdminRoutes);
 app.use(TeacherRoutes);
 
 mongoose.connect(mongo_url).then(() => {
