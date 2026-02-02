@@ -7,7 +7,7 @@ exports.ValidateTeacher = (req, res, next) => {
        message: "Valid User",
      });
   } else {
-    res.status(403).json({
+    res.status(401).json({
       message: "Log In First",
     });
   }

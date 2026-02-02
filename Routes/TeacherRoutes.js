@@ -24,15 +24,15 @@ let StoreFile = multer({ storage: storage }).single("studentImage");
 
 
 
-TeacherRoutes.get ('/teacher/', TeacherController.ValidateTeacher);
+TeacherRoutes.get ('/', TeacherController.ValidateTeacher);
 
-TeacherRoutes.post('/teacher/Add-New-Student',StoreFile, TeacherController.AddStudent);
+TeacherRoutes.post('/Add-New-Student',StoreFile, TeacherController.AddStudent);
 
-TeacherRoutes.post('/teacher/logout', TeacherController.Logout);
+TeacherRoutes.post('/logout', TeacherController.Logout);
 
-TeacherRoutes.get("/teacher/TeacherDetails", TeacherController.TeacherDetails);
+TeacherRoutes.get("/TeacherDetails", TeacherController.TeacherDetails);
 
 
-TeacherRoutes.get("/teacher/getStudents", TeacherController.GetStudents);
+TeacherRoutes.get("/getStudents", TeacherController.GetStudents);
 
 module.exports = TeacherRoutes;

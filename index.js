@@ -47,7 +47,7 @@ app.use(AdminAuthCheck);
 app.use(TeacherAuthCheck);
 app.use(DirectRouteAccess);
 app.use('/admin', AdminRoutes);
-app.use(TeacherRoutes);
+app.use('/teacher', TeacherRoutes);
 
 mongoose.connect(mongo_url).then(() => {
   app.listen(port, () => {
