@@ -1,3 +1,4 @@
+require('dotenv').config();
 let express = require("express");
 let cors = require("cors");
 let mongoose = require("mongoose");
@@ -5,9 +6,11 @@ let mongoose = require("mongoose");
 
 let app = express();
 let session = require("express-session");
-let port = 5005;
+let port = process.env.PORT || 5002;
 let mongo_url =
-  "mongodb+srv://sanju:sanju@go-nakli.9rao9tp.mongodb.net/college?appName=GO-NAKLI";
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@go-nakli.9rao9tp.mongodb.net/Student_Attendence?appName=GO-NAKLI`;
+
+
 
 const AdminAuthCheck = require("./Routes/AuthorizationRoutes/AdminAuth");
 const AdminRoutes = require("./Routes/AdminRoutes");
@@ -51,6 +54,8 @@ app.use('/teacher', TeacherRoutes);
 
 mongoose.connect(mongo_url).then(() => {
   app.listen(port, () => {
-    console.log(`http://localhost:${port}`);
+    console.log(`server is running`);
   });
-});
+}).catch((err)=>{
+  console.log(`Error while starting server: ${err}`);
+})
