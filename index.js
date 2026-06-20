@@ -33,7 +33,6 @@ app.use(express.urlencoded({ extended: true }));
 //     credentials: true,
 //   }),
 // );
-const cors = require("cors");
 app.use(cors({
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
