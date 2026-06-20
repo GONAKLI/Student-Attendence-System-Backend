@@ -33,12 +33,14 @@ app.use(express.urlencoded({ extended: true }));
 //     credentials: true,
 //   }),
 // );
+
 app.use(cors({
-  origin: "*",
+  origin: "https://web-based-student-attendence-system.onrender.com", 
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type"],
   credentials: true
 }));
+
 
 app.use(
   session({
